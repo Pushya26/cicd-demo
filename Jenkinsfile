@@ -11,6 +11,11 @@ pipeline {
                 sh 'docker build -t cicd-demo:latest .'
             }
         }
+        stage('Cleanup Old Container') {
+            steps {
+                sh 'docker rm -f cicd-demo-app || true'
+            }
+        }
         stage('Run Container') {
             steps {
                 sh 'docker run -d -p 8081:80 --name cicd-demo-app cicd-demo:latest'
