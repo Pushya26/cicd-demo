@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                git branch: 'main', url: 'https://github.com/<your-username>/cicd-demo.git'
+                git branch: 'main', url: 'https://github.com/Pushya26/cicd-demo.git'
             }
         }
         stage('Build Docker Image') {
