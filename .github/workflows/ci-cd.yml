@@ -1,0 +1,25 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t cicd-demo:latest .
+
+      - name: Run container (test deployment)
+        run: |
+          docker run -d -p 8081:80 --name test-app cicd-demo:latest
+          sleep 5
+          curl http://localhost:8081
+
+      - name: Clean up
+        run: docker rm -f test-app
